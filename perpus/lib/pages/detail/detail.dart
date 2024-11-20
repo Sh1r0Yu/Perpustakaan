@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:perpus/constants/colors.dart';
 import 'package:perpus/models/book.dart';
 import 'package:perpus/pages/detail/widgets/book_cover.dart';
 import 'package:perpus/pages/detail/widgets/book_detail.dart';
