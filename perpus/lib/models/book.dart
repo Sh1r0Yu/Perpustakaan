@@ -1,51 +1,38 @@
 class Book {
-  String type;
-  String name;
-  String publisher;
-  DateTime date;
-  String imgUrl;
-  num height;
-  String review;
+  final String title;
+  final String authors;
+  final String description;
+  final String thumbnail;
+  final String publisher;
+  final String date;
+  final String review;
+  final String previewLink; // Tambahkan preview link
 
-  Book(
-    this.type,
-    this.name,
-    this.publisher,
-    this.date,
-    this.imgUrl,
-    this.height,
-    this.review,
-  );
+  Book({
+    required this.title,
+    required this.authors,
+    required this.description,
+    required this.thumbnail,
+    required this.publisher,
+    required this.date,
+    required this.review,
+    required this.previewLink,
+  });
 
-  static List<Book> generateBooks() {
-    return [
-      Book(
-        'Fiction',
-        'The Great Gatsby',
-        'Scribner',
-        DateTime(1925, 4, 10),
-        'assets/images/254-200x300.jpg',
-        1.5,
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris finibus, massa at porttitor viverra, velit odio malesuada magna, lobortis elementum.',
-      ),
-      Book(
-        'Non-Fiction',
-        'Sapiens: A Brief History of Humankind',
-        'Harper',
-        DateTime(2011, 9, 4),
-        'assets/images/254-200x300.jpg',
-        2.0,
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris finibus, massa at porttitor viverra, velit odio malesuada magna, lobortis elementum.'
-      ),
-      Book(
-        'Science Fiction',
-        'Dune',
-        'Chilton Books',
-        DateTime(1965, 8, 1),
-        'assets/images/254-200x300.jpg',
-        1.8,
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris finibus, massa at porttitor viverra, velit odio malesuada magna, lobortis elementum.',
-      ),
-    ];
+  factory Book.fromJson(Map<String, dynamic> json) {
+    return Book(
+      title: json['volumeInfo']['title'] ?? 'No Title',
+      authors: (json['volumeInfo']['authors'] as List<dynamic>?)?.join(', ') ?? 'No Authors',
+      description: json['volumeInfo']['description'] ?? 'No Description',
+      thumbnail: json['volumeInfo']['imageLinks'] != null
+          ? json['volumeInfo']['imageLinks']['thumbnail']
+          : 'https://via.placeholder.com/150',
+      publisher: json['volumeInfo']['publisher'] ?? 'Unknown Publisher',
+      date: json['volumeInfo']['publishedDate'] ?? 'Unknown Date',
+      review: json['volumeInfo']['averageRating'] != null
+          ? 'Average Rating: ${json['volumeInfo']['averageRating']}'
+          : 'No Reviews',
+      previewLink: json['volumeInfo']['previewLink'] ?? '',
+    );
   }
 }

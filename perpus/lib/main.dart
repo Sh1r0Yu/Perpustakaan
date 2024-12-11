@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:perpus/pages/home/home.dart';
+import 'package:perpus/pages/login/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,18 +8,15 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      const  SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-      ),
-    );
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Library',
-      home: Homepage(),
+      title: 'Perpustakaan Digital',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const LoginPage(),
     );
   }
 }

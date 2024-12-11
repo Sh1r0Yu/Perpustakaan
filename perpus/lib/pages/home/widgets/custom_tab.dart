@@ -1,46 +1,54 @@
 import 'package:flutter/material.dart';
 
-class CustomTab extends StatelessWidget{
-  final int selected;
-  final Function callback;
-  CustomTab (this.selected, this.callback, {super.key});
-  final tabs = ['Buku', 'Artikel'];
+class CustomTab extends StatelessWidget {
+  final int selectedTab;
+  final Function(int) onTabChanged;
+
+  const CustomTab(this.selectedTab, this.onTabChanged, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    return Container(
-      margin: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 255, 255, 255),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      width: width,
-      height: 56,
-      child: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (_, index) => GestureDetector(
-          onTap: () =>callback(index),
-          child: Container(
-            decoration: BoxDecoration(
-              color: selected == index ? const Color.fromARGB(255, 163, 163, 163) : const Color.fromARGB(255, 255, 255, 255),
-              borderRadius: BorderRadius.circular(5),
-            ),
-            margin: const EdgeInsets.symmetric(vertical: 5),
-            alignment: Alignment.center,
-            width: ( width - 40) / 2 - 10,
-            child: Text(
-              tabs[index],           
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0), // Berikan jarak agar tidak terlalu dekat dengan elemen lain
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround, // Menjaga jarak antar tab
+        children: [
+          GestureDetector(
+            onTap: () => onTabChanged(0), // Menambahkan logika tab 1
+            child: Semantics(
+              label: 'Tab 1',
+              selected: selectedTab == 0,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(
+                  'Tab 1',
+                  style: TextStyle(
+                    fontWeight: selectedTab == 0 ? FontWeight.bold : FontWeight.normal,
+                    color: selectedTab == 0 ? Colors.blue : Colors.black,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-        separatorBuilder: (_, index) => const SizedBox(width: 10),
-        itemCount: tabs.length),
-      );
+          GestureDetector(
+            onTap: () => onTabChanged(1), // Menambahkan logika tab 2
+            child: Semantics(
+              label: 'Tab 2',
+              selected: selectedTab == 1,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(
+                  'Tab 2',
+                  style: TextStyle(
+                    fontWeight: selectedTab == 1 ? FontWeight.bold : FontWeight.normal,
+                    color: selectedTab == 1 ? Colors.blue : Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
