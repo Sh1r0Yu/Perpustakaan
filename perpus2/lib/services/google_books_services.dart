@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:perpus2/models/book.dart';
 
 class GoogleBooksService {
-  final String apiKey = 'AIzaSyAWjk6jAdLSkcvu76a66T2YRKHIt642Hqw'; // Ganti dengan API key Anda
+  final String apiKey = const String.fromEnvironment('GOOGLE_BOOKS_API_KEY');
 
   Future<List<Book>> getPopularBooks() async {
     final response = await http.get(
